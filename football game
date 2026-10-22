@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07130f">
+  <meta name="description" content="Ultimate Football Pro Arena — et spillbart fotballspill i nettleseren.">
+  <title>Ultimate Football | Pro Arena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Ultimate Football hjem">
+        <span class="brand-icon">⚽</span>
+        <span>ULTIMATE<span class="brand-accent">FOOTBALL</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-indicator"><i></i> OFFLINE CAREER</span>
+        <button id="soundBtn" class="icon-btn" aria-label="Slå lyd av eller på">🔊</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="menuScreen" class="menu-screen">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> YOUR ROAD TO GLORY</div>
+          <h1>OWN THE<br><span>GAME.</span></h1>
+          <p>Ta kontroll over ballen. Slå forsvarerne. Finn nettmaskene.</p>
+
+          <div class="hero-actions">
+            <button id="playBtn" class="primary-btn">
+              <span>▶</span> START MATCH
+            </button>
+            <button id="howBtn" class="secondary-btn">HOW TO PLAY ↗</button>
+          </div>
+
+          <div class="hero-stats">
+            <div><strong>01</strong><span>PLAYER</span></div>
+            <div><strong>90°</strong><span>TOP-DOWN</span></div>
+            <div><strong>∞</strong><span>REPLAY</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-glow"></div>
+          <div class="visual-ring ring-one"></div>
+          <div class="visual-ring ring-two"></div>
+          <div class="hero-ball">⚽</div>
+          <div class="visual-label label-top">PRO ARENA <span>• 01</span></div>
+          <div class="visual-label label-bottom">EST. 2026 / PLAY YOUR WAY</div>
+          <div class="visual-cross">+</div>
+        </div>
+
+        <div class="mode-panel">
+          <div class="section-heading">
+            <div><span class="eyebrow">GAME MODES</span><h2>Choose your challenge</h2></div>
+            <span class="muted">01 / 03</span>
+          </div>
+          <div class="mode-grid">
+            <button class="mode-card selected" data-mode="quick">
+              <span class="mode-number">01</span>
+              <span class="mode-emoji">🏟️</span>
+              <strong>Quick Match</strong>
+              <span class="mode-description">Kast deg rett inn i kampen.</span>
+              <span class="mode-arrow">↗</span>
+            </button>
+            <button class="mode-card" data-mode="training">
+              <span class="mode-number">02</span>
+              <span class="mode-emoji">🎯</span>
+              <strong>Training</strong>
+              <span class="mode-description">Øv på skudd og ballkontroll.</span>
+              <span class="mode-arrow">↗</span>
+            </button>
+            <button class="mode-card" data-mode="survival">
+              <span class="mode-number">03</span>
+              <span class="mode-emoji">🔥</span>
+              <strong>Survival</strong>
+              <span class="mode-description">Score så mange du klarer.</span>
+              <span class="mode-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <section id="helpPanel" class="help-panel hidden">
+          <div class="section-heading"><div><span class="eyebrow">CONTROLS</span><h2>Slik spiller du</h2></div></div>
+          <div class="controls-grid">
+            <div><kbd>W A S D</kbd><span>Beveg spilleren</span></div>
+            <div><kbd>SHIFT</kbd><span>Sprint</span></div>
+            <div><kbd>SPACE</kbd><span>Skyt mot mål</span></div>
+            <div><kbd>E</kbd><span>Pasning</span></div>
+            <div><kbd>Q</kbd><span>Bytt spiller</span></div>
+            <div><kbd>ESC</kbd><span>Pause / fortsett</span></div>
+            <div><kbd>MOUSE</kbd><span>Sikt med musen</span></div>
+            <div><kbd>R</kbd><span>Start kampen på nytt</span></div>
+          </div>
+        </section>
+      </section>
+
+      <section id="gameScreen" class="game-screen hidden">
+        <div class="match-header">
+          <button id="backBtn" class="back-btn">← MENY</button>
+          <div class="competition"><span class="live-dot"></span><span id="modeLabel">QUICK MATCH</span></div>
+          <button id="pauseBtn" class="pause-btn">Ⅱ PAUSE</button>
+        </div>
+
+        <div class="scoreboard">
+          <div class="team-side home-side">
+            <span class="team-badge home-badge">U</span>
+            <div><small>HOME</small><strong>UNITED</strong></div>
+          </div>
+          <div class="score-center">
+            <div class="score-numbers"><span id="homeScore">0</span><span class="score-dash">:</span><span id="awayScore">0</span></div>
+            <div class="match-clock"><span id="clock">00:00</span><span class="clock-divider">/</span><span id="durationLabel">03:00</span></div>
+          </div>
+          <div class="team-side away-side">
+            <div><small>AWAY</small><strong>RANGERS</strong></div>
+            <span class="team-badge away-badge">R</span>
+          </div>
+        </div>
+
+        <div class="pitch-frame">
+          <canvas id="gameCanvas" aria-label="Fotballspill. Bruk WASD for å bevege spilleren og mellomrom for å skyte." tabindex="0"></canvas>
+          <div id="toast" class="toast"></div>
+          <div class="pitch-hint">WASD MOVE <span>•</span> SHIFT SPRINT <span>•</span> SPACE SHOOT</div>
+
+          <div id="pauseOverlay" class="overlay hidden">
+            <div class="overlay-card">
+              <span class="eyebrow">MATCH INTERRUPTED</span>
+              <h2>GAME<br><span>PAUSED.</span></h2>
+              <p>Ta en pust i bakken. Banen venter.</p>
+              <button id="resumeBtn" class="primary-btn">▶ CONTINUE</button>
+              <button id="restartBtn" class="secondary-btn full-btn">↻ RESTART MATCH</button>
+              <button id="quitBtn" class="text-btn">BACK TO MENU</button>
+            </div>
+          </div>
+
+          <div id="resultOverlay" class="overlay hidden">
+            <div class="overlay-card result-card">
+              <span class="eyebrow">FULL TIME</span>
+              <h2 id="resultTitle">WHAT A MATCH.</h2>
+              <div class="result-score"><span id="finalHome">0</span><span>:</span><span id="finalAway">0</span></div>
+              <p id="resultText">Bra jobbet!</p>
+              <div class="result-stats">
+                <div><strong id="shotsStat">0</strong><span>SKUDD</span></div>
+                <div><strong id="goalsStat">0</strong><span>MÅL</span></div>
+                <div><strong id="savesStat">0</strong><span>REDNINGER</span></div>
+              </div>
+              <button id="againBtn" class="primary-btn">↻ PLAY AGAIN</button>
+              <button id="resultMenuBtn" class="secondary-btn full-btn">BACK TO MENU</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-bottom">
+          <div class="game-stat"><span class="stat-icon">⚡</span><div><small>PLAYER SPEED</small><strong id="speedStat">0 km/h</strong></div></div>
+          <div class="game-stat"><span class="stat-icon">🎯</span><div><small>SHOT POWER</small><strong id="powerStat">READY</strong></div></div>
+          <div class="game-stat"><span class="stat-icon">⚽</span><div><small>BALL POSSESSION</small><strong id="possessionStat">HOME</strong></div></div>
+          <div class="power-meter"><div class="meter-top"><span>SHOT CHARGE</span><span id="chargePercent">0%</span></div><div class="meter-track"><div id="chargeFill"></div></div><small>Hold SPACE to charge • Release to shoot</small></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>ULTIMATE FOOTBALL <span class="muted">© 2026</span></span>
+      <span>BUILT FOR THE LOVE OF THE GAME ⚽</span>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
